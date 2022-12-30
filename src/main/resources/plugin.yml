@@ -1,0 +1,11 @@
+name: Fly
+version: '${project.version}'
+main: me.iamyuuk.fly.Fly
+api-version: 1.19
+commands:
+  fly:
+    description: Let Player Control Fly
+permissions:
+  fly.use:
+    description: Use fly
+    default: op
