@@ -11,13 +11,13 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 public final class Fly extends JavaPlugin implements CommandExecutor {
+    static Task task;
 
     @Override
     public void onEnable() {
         // Plugin startup logic
         getLogger().info(
                 """
-                         
                           ______ _      \s
                          |  ____| |     \s
                          | |__  | |_   _\s
@@ -27,9 +27,11 @@ public final class Fly extends JavaPlugin implements CommandExecutor {
                                     __/ |
                                    |___/\s
                                 
-                        开发者：ObcbO、宇宇YuuK        
+                        开发者：ObcbO、宇宇YuuK
                         """
         );
+        task = new Task();
+        task.runTaskTimerAsynchronously(this, 200, 20);
         if (Bukkit.getPluginCommand("fly") != null) {
             Objects.requireNonNull(Bukkit.getPluginCommand("fly")).setExecutor(this);
         }
@@ -38,6 +40,7 @@ public final class Fly extends JavaPlugin implements CommandExecutor {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        task.cancel();
         getLogger().info("插件已关闭");
     }
 
@@ -48,7 +51,8 @@ public final class Fly extends JavaPlugin implements CommandExecutor {
                 sender.sendMessage("你没有权限");
                 return true;
             }
-            player.setAllowFlight(!player.getAllowFlight());
+            boolean allowFlight = player.getAllowFlight();
+            player.setAllowFlight(!allowFlight);
             sender.sendMessage("飞行" + (player.getAllowFlight() ? "启动" : "禁用") + "成功");
         } else {
             // 可能是插件执行或者是控制台
