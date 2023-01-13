@@ -1,6 +1,7 @@
 package me.iamyuuk.fly;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -12,7 +13,9 @@ public class Task extends BukkitRunnable {
     @Override
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            if (player.getAllowFlight() && player.isFlying()) {
+            GameMode gameMode = player.getGameMode();
+            if (player.getAllowFlight() && player.isFlying() &&
+                gameMode != GameMode.CREATIVE && gameMode != GameMode.SPECTATOR) {
                 int now = Math.max(player.getFoodLevel() - 1, 0);
                 player.setFoodLevel(now);
                 if (now == 0) {

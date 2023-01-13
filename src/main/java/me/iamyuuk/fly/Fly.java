@@ -48,15 +48,15 @@ public final class Fly extends JavaPlugin implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player player) {
             if (!player.hasPermission("fly.use")) {
-                sender.sendMessage("你没有权限");
+                sender.sendMessage(" §6米§f客 §8>> 你没有权限");
                 return true;
             }
             boolean allowFlight = player.getAllowFlight();
             player.setAllowFlight(!allowFlight);
-            sender.sendMessage("飞行" + (player.getAllowFlight() ? "启动" : "禁用") + "成功");
+            sender.sendMessage(" §6米§f客 §8>> " + (player.getAllowFlight() ? "§a飞行启动" : "§c飞行禁用") + "成功");
         } else {
             // 可能是插件执行或者是控制台
-            sender.sendMessage("你不是玩家");
+            sender.sendMessage(" §6米§f客 §8>> §c你不是玩家");
         }
         return true;
     }
